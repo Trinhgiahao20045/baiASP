@@ -34,5 +34,30 @@ namespace WebQLDaoTao.Models
 
             return ds;
         }
+
+        public int Update(SinhVien sv)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringName"].ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("update sinhvien set hosv=@hosv, tensv=@tensv, gioitinh=@gioitinh,"+
+                "ngaysinh = @ngaysinh, noisinh = @noisinh, diachi = @diachi, makh = @makh where Masv = @Masv", conn);
+            cmd.Parameters.AddWithValue("@masv", sv.MaSV);
+            cmd.Parameters.AddWithValue("@hosv", sv.HoSV);
+            cmd.Parameters.AddWithValue("@tensv", sv.TenSV);
+            cmd.Parameters.AddWithValue("@gioitinh", sv.GioiTinh);
+            cmd.Parameters.AddWithValue("@ngaysinh", sv.NgaySinh);
+            cmd.Parameters.AddWithValue("@noisinh", sv.NoiSinh);
+            cmd.Parameters.AddWithValue("@diachi", sv.DiaChi);
+            cmd.Parameters.AddWithValue("@makh", sv.MaKH);
+            return cmd.ExecuteNonQuery();
+        }
+        public int Delete(SinhVien sv)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionStringName"].ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("delete from sinhvien where masv=@masv",conn);
+            cmd.Parameters.AddWithValue("@masv", sv.MaSV);
+            return cmd.ExecuteNonQuery();
+        }
     }
 }
